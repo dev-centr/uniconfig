@@ -27,12 +27,12 @@ jobs:
         run: dub build --config=application --build=release --compiler=ldc2
       - name: Pack
         working-directory: uniconfig
-        shell: bash
+        shell: pwsh
         run: |
-          mkdir -p dist
-          cp uniconfig.exe dist/uniconfig-windows-amd64.exe
-          cp -r profiles dist/profiles
-          (cd dist && zip -r ../uniconfig-windows-amd64.zip .)
+          New-Item -ItemType Directory -Force -Path dist | Out-Null
+          Copy-Item uniconfig.exe dist/uniconfig-windows-amd64.exe
+          Copy-Item -Recurse profiles dist/profiles
+          Compress-Archive -Path dist\* -DestinationPath uniconfig-windows-amd64.zip -Force
       - uses: softprops/action-gh-release@v2
         with:
           files: |
