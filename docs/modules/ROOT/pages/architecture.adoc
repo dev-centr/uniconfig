@@ -1,0 +1,27 @@
+= Architecture
+:description: uniconfig-core tree, codecs, schema merge, GUI, optional Vello.
+:navtitle: Architecture
+
+Two repositories on purpose:
+
+[cols="1,2"]
+|===
+| `uniconfig-core` | D library: tree, codecs, JSON Schema subset, SDLang profiles, registry. No GUI. DUB-publishable.
+| `uniconfig` | Desktop app: dlangui `AppFrame`, form widgets, Band A About/Help/dump. Depends on the core via a sibling path in git clones, git URL in CI once tagged.
+|===
+
+image::layers.svg[alt="Storage, meaning, and panel stacked"]
+
+DevCentr stays independent at the GUI layer. It can `dub` on `uniconfig-core` and spawn the `uniconfig` binary for a file. It does not vendor Elektra, Augeas, or SchemaStore.
+
+== Optional Vello
+
+dlangui's Windows `vello-windows` configuration (dlang-supplemental fork + `vello-d`) is an experimental GPU clear behind GDI widgets. Default builds use dlangui `default`. `dub build -c vello-windows` needs a sibling or git `vello-d` with the Rust bridge built. Publish `vello-d` to code.dlang.org when ready; until then git/path deps are intentional.
+
+== Formula (sanity)
+
+A tiny count of unset fields after merge:
+
+stem:[n_{\text{unset}} = \lvert S \setminus I \rvert]
+
+where stem:[S] is the schema property set and stem:[I] is the instance key set.

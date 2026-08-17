@@ -1,0 +1,9 @@
+= Changelog
+
+== 2026-08-17 — v0.1.0 first public cut
+
+* Desktop panel + CLI for JSON, JSON5-lite, YAML-lite, TOML/INI, SDLang, HCL-lite (`tfvars`)
+* Schema overlay (JSON Schema subset) and SDLang profile catalog
+* Registry of opened files; unset fields listed with include
+* Band A: About, Help, debug dump, GitHub releases as the update path
+* See xref:changelog-details/2026-08-17 - first-panel.adoc[Detailed changelog]

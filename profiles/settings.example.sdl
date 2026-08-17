@@ -1,0 +1,3 @@
+theme "system"
+register-on-open true
+show-unset true

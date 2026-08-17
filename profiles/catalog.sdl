@@ -1,0 +1,40 @@
+profile "gitconfig" {
+    title "Git config"
+    glob ".gitconfig"
+    glob ".git/config"
+    format "ini"
+    schema "gitconfig.schema.json"
+    description "User or repository Git identity and core defaults"
+}
+
+profile "dub-sdl" {
+    title "DUB recipe"
+    glob "dub.sdl"
+    format "sdlang"
+    schema "dub.schema.json"
+    description "DUB package recipe"
+}
+
+profile "editorconfig" {
+    title "EditorConfig"
+    glob ".editorconfig"
+    format "ini"
+    schema "editorconfig.schema.json"
+    description "Editor defaults for a tree"
+}
+
+profile "tfvars" {
+    title "Terraform variables"
+    glob "*.tfvars"
+    format "hcl"
+    schema "tfvars.schema.json"
+    description "Root-module input variables as HCL assignments"
+}
+
+profile "uniconfig-settings" {
+    title "UniConfig settings"
+    glob "settings.sdl"
+    format "sdlang"
+    schema "uniconfig-settings.schema.json"
+    description "UniConfig Config Panel own settings"
+}

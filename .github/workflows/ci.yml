@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  core:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: dev-centr/uniconfig-core
+          path: uniconfig-core
+      - uses: actions/checkout@v4
+        with:
+          path: uniconfig
+      - uses: dlang-community/setup-dlang@v1
+        with:
+          compiler: ldc-latest
+      - name: Test core
+        working-directory: uniconfig-core
+        run: dub test
+
+  app-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: dev-centr/uniconfig-core
+          path: uniconfig-core
+      - uses: actions/checkout@v4
+        with:
+          path: uniconfig
+      - uses: dlang-community/setup-dlang@v1
+        with:
+          compiler: ldc-latest
+      - name: Build
+        working-directory: uniconfig
+        run: dub build --config=application --build=release
+      - name: CLI smoke
+        working-directory: uniconfig
+        shell: pwsh
+        run: |
+          .\uniconfig.exe --version
+          .\uniconfig.exe dump .\profiles\settings.example.sdl

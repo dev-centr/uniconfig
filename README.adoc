@@ -1,0 +1,79 @@
+ifndef::env-github[:icons: font]
+:toc: preamble
+:toclevels: 2
+:sectanchors:
+
+ifdef::env-github[]
+++++
+<a id="readme-top"></a>
+<div align="center">
+<a href="https://github.com/dev-centr/uniconfig/graphs/contributors"><img src="https://img.shields.io/github/contributors/dev-centr/uniconfig.svg?style=for-the-badge" alt="Contributors"></a>
+<a href="https://github.com/dev-centr/uniconfig/network/members"><img src="https://img.shields.io/github/forks/dev-centr/uniconfig.svg?style=for-the-badge" alt="Forks"></a>
+<a href="https://github.com/dev-centr/uniconfig/stargazers"><img src="https://img.shields.io/github/stars/dev-centr/uniconfig.svg?style=for-the-badge" alt="Stars"></a>
+<a href="https://github.com/dev-centr/uniconfig/issues"><img src="https://img.shields.io/github/issues/dev-centr/uniconfig.svg?style=for-the-badge" alt="Issues"></a>
+<a href="https://github.com/dev-centr/uniconfig/blob/main/LICENSE"><img src="https://img.shields.io/github/license/dev-centr/uniconfig.svg?style=for-the-badge" alt="License"></a>
+<br />
+<img src="assets/uniconfig.svg" alt="UniConfig Config Panel" width="96"/>
+<h3 align="center">UniConfig Config Panel</h3>
+<p align="center">
+Schema-driven Control Panel for config files that never grew a settings UI.<br />
+<a href="https://docs.devcentr.org/uniconfig/latest/"><strong>Explore the docs »</strong></a><br /><br />
+<a href="https://github.com/dev-centr/uniconfig/issues">Report Bug</a>
+·
+<a href="https://github.com/dev-centr/uniconfig/issues">Request Feature</a>
+</p>
+</div>
+++++
+endif::[]
+
+ifndef::env-github[]
+image:assets/uniconfig.svg[UniConfig Config Panel,96]
+= UniConfig Config Panel
+
+Schema-driven Control Panel for config files that never grew a settings UI.
+
+link:https://docs.devcentr.org/uniconfig/latest/[Explore the docs »]
+endif::[]
+
+== About The Project
+
+Open INI, YAML, TOML, SDLang, JSON, or `.tfvars`. The panel shows labels, enums, and **fields that are legal but absent**. Profiles in SDLang map filename globs onto JSON Schema. Opened files register into a tree stored as `registry.sdl`.
+
+The parser/schema engine is a separate repo: link:https://github.com/dev-centr/uniconfig-core[uniconfig-core] — DevCentr can depend on that without dlangui.
+
+=== Built With
+
+* Runtime / language
+** link:https://dlang.org[D]
+* UI
+** link:https://github.com/dlang-supplemental/dlangui[dlangui] (optional Vello backend in `vello-d`)
+* Config
+** link:https://code.dlang.org/packages/sdlang-d[sdlang-d]
+* Docs
+** link:https://antora.org[Antora]
+
+== Getting Started
+
+=== Prerequisites
+
+LDC or DMD, DUB. Clone `uniconfig-core` as a sibling (`../uniconfig-core`).
+
+=== Build
+
+[source,powershell]
+----
+dub build --config=application
+.\uniconfig.exe --help
+----
+
+=== Changelog
+
+See link:docs/modules/ROOT/pages/changelog.adoc[changelog] (hub: https://docs.devcentr.org/uniconfig/latest/changelog.html).
+
+== License
+
+MIT — see `LICENSE`.
+
+== Contact
+
+Dev-Centr — https://devcentr.org

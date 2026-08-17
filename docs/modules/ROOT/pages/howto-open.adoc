@@ -1,0 +1,23 @@
+= Open a file and register it
+:description: How-to open configs, include unset schema fields, and persist the registry.
+:navtitle: How-to open
+
+. Run `uniconfig` (or `uniconfig path\to\file`).
+. File -> Open. Filters cover JSON, YAML, TOML, INI/cfg, SDLang, and `*.tfvars`.
+. If a profile glob matches (`profiles/catalog.sdl`), that JSON Schema overlays the file. Unset optional keys show with an **include** checkbox.
+. Check include, fill the control, File -> Save. Keys you leave unchecked stay out of the file.
+. The left **Registry** tree stores the path in `%LOCALAPPDATA%\UniConfig\registry.sdl` (Unix: `$XDG_CONFIG_HOME/uniconfig/registry.sdl`).
+
+CLI without a window:
+
+[source,powershell]
+----
+uniconfig dump .\fixtures\sample.gitconfig
+uniconfig validate .\profiles\settings.example.sdl
+----
+
+`dump` prints the merged JSON and lists unset schema fields as comments.
+
+== Ship your own profile
+
+Add a `profile "id" { }` block to `profiles/catalog.sdl` (shipped beside the exe) or a user catalog later. Point `schema` at a draft-07 JSON Schema. `glob` matches the basename or a path glob.

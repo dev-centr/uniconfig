@@ -1,0 +1,34 @@
+= CLI and formats
+:description: Commands, formats, paths, and Band A product surfaces.
+:navtitle: Reference
+
+== Commands
+
+[cols="1,3"]
+|===
+| `uniconfig [FILE]` | Open the panel. Optional path loads immediately.
+| `uniconfig dump FILE` | Print merged JSON plus unset schema fields.
+| `uniconfig validate FILE` | Report missing required fields.
+| `uniconfig debug-dump` | Redacted support dump (paths, versions; no secrets).
+| `--version` / `-V` | Stamp from `versioninfo` (same number as About).
+| `--help` / `-h` | Usage.
+|===
+
+Help -> Documentation opens this hub. Help -> Check for updates opens GitHub Releases. About shares version + build id.
+
+== Formats (v0.1)
+
+JSON, JSON5-lite (comments, trailing commas), YAML-lite, TOML/INI/cfg, SDLang, HCL-lite (`key = value` as in `.tfvars`).
+
+BOM-prefixed UTF-8 is stripped on read.
+
+== Paths
+
+[cols="1,2"]
+|===
+| Registry | `%LOCALAPPDATA%\UniConfig\registry.sdl`
+| Debug dump | `%LOCALAPPDATA%\UniConfig\debug-dump.txt`
+| Bundled profiles | `profiles/` next to the executable
+|===
+
+Updates in v0.1 are the GitHub Releases page (no in-app downloader yet). Portable zip is the installer channel until MSI/winget land.

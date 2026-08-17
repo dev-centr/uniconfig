@@ -1,0 +1,41 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: dev-centr/uniconfig-core
+          path: uniconfig-core
+      - uses: actions/checkout@v4
+        with:
+          path: uniconfig
+      - uses: dlang-community/setup-dlang@v1
+        with:
+          compiler: ldc-latest
+      - name: Build
+        working-directory: uniconfig
+        run: dub build --config=application --build=release --compiler=ldc2
+      - name: Pack
+        working-directory: uniconfig
+        shell: bash
+        run: |
+          mkdir -p dist
+          cp uniconfig.exe dist/uniconfig-windows-amd64.exe
+          cp -r profiles dist/profiles
+          (cd dist && zip -r ../uniconfig-windows-amd64.zip .)
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            uniconfig/uniconfig-windows-amd64.zip
+            uniconfig/dist/uniconfig-windows-amd64.exe
+          generate_release_notes: true

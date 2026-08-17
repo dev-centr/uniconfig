@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "Git config",
+  "type": "object",
+  "properties": {
+    "user": {
+      "type": "object",
+      "title": "User",
+      "description": "Identity written into commits",
+      "properties": {
+        "name": { "type": "string", "title": "Name", "description": "Author name on commits" },
+        "email": { "type": "string", "title": "Email", "description": "Author email on commits" }
+      }
+    },
+    "core": {
+      "type": "object",
+      "title": "Core",
+      "properties": {
+        "editor": { "type": "string", "title": "Editor", "description": "Program used for commit messages" },
+        "autocrlf": {
+          "type": "string",
+          "title": "autocrlf",
+          "enum": ["true", "false", "input"],
+          "description": "Line-ending conversion"
+        }
+      }
+    }
+  }
+}

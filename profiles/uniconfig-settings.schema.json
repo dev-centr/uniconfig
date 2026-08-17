@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "UniConfig settings",
+  "type": "object",
+  "properties": {
+    "theme": { "type": "string", "title": "Theme", "enum": ["system", "light", "dark"] },
+    "register-on-open": { "type": "boolean", "title": "Register on open", "default": true, "description": "Add opened files to the registry tree" },
+    "show-unset": { "type": "boolean", "title": "Show unset fields", "default": true }
+  }
+}

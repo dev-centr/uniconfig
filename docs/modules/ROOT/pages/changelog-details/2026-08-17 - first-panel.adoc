@@ -1,0 +1,6 @@
+= v0.1.0 first panel
+:description: Initial UniConfig Config Panel and uniconfig-core split.
+
+The first cut splits the schema-aware tree (`uniconfig-core`) from the dlangui app (`uniconfig`) so DevCentr can adopt the engine without a GUI dependency.
+
+Bundled profiles cover Git config, DUB recipes, EditorConfig, Terraform tfvars, and UniConfig's own SDLang settings. On-the-fly inference still loads files that have no profile.

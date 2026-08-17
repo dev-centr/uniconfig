@@ -1,0 +1,24 @@
+= Why a generic config panel
+:description: Formats are syntax. Settings UIs need a shared vocabulary that text files hide.
+:navtitle: Why
+
+A config file without a schema is a photograph of the keys someone happened to need. The rest of the legal vocabulary -- enums, defaults, descriptions -- lives in docs, provider plugins, or someone else's example.
+
+Linux already solved this for **opt-in apps**: GSettings schemas plus dconf-editor, or KDE KConfigXT. Windows Group Policy templates do the same from ADMX. Developers get a weaker cousin: SchemaStore plus editor completion.
+
+Nothing trustworthy sits in the middle: open *this* Terraform tfvars, *that* `dub.sdl`, *that* `.gitconfig`, register them after touch, and keep the same panel widgets.
+
+image::schema-minus-instance.svg[alt="Left: two-line gitconfig. Right: panel listing unset email and autocrlf"]
+
+UniConfig treats that gap as the product:
+
+* **On-the-fly** -- open a file, infer types from what is present.
+* **Register after touch** -- the left tree remembers paths in `registry.sdl`.
+* **Catalog** -- SDLang profiles map globs onto JSON Schema so unset fields appear.
+
+The hard work is not the widgets. It is round-trip plus schema adapters. HCL programs and `for_each` stay out of v0.1; `.tfvars` assignments are in.
+
+Related HCI argument (settings as bound work, not a warehouse):
+link:https://hci-nerdz.github.io/blog/when-settings-live-across-town/[When settings live across town]
+and the companion
+link:https://hci-nerdz.github.io/blog/when-config-files-withhold-the-vocabulary/[When config files withhold the vocabulary].
