@@ -17,7 +17,7 @@ ifdef::env-github[]
 <h3 align="center">UniConfig Config Panel</h3>
 <p align="center">
 Schema-driven Control Panel for config files that never grew a settings UI.<br />
-<a href="https://docs.devcentr.org/uniconfig/latest/"><strong>Explore the docs »</strong></a><br /><br />
+<a href="https://docs.devcentr.org/uniconfig/"><strong>Explore the docs »</strong></a><br /><br />
 <a href="https://github.com/dev-centr/uniconfig/issues">Report Bug</a>
 ·
 <a href="https://github.com/dev-centr/uniconfig/issues">Request Feature</a>
@@ -32,7 +32,7 @@ image:assets/uniconfig.svg[UniConfig Config Panel,96]
 
 Schema-driven Control Panel for config files that never grew a settings UI.
 
-link:https://docs.devcentr.org/uniconfig/latest/[Explore the docs »]
+link:https://docs.devcentr.org/uniconfig/[Explore the docs »]
 endif::[]
 
 == About The Project
@@ -68,7 +68,7 @@ dub build --config=application
 
 === Changelog
 
-See link:docs/modules/ROOT/pages/changelog.adoc[changelog] (hub: https://docs.devcentr.org/uniconfig/latest/changelog.html).
+See link:docs/modules/ROOT/pages/changelog.adoc[changelog] (hub: https://docs.devcentr.org/uniconfig/changelog.html).
 
 == License
 

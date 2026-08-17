@@ -12,7 +12,7 @@ image::layers.svg[alt="Three layers: storage formats, schema meaning, generic pa
 
 * Releases: link:https://github.com/dev-centr/uniconfig/releases[GitHub Releases]
 * Library: link:https://github.com/dev-centr/uniconfig-core[uniconfig-core]
-* Docs hub: link:https://docs.devcentr.org/uniconfig/latest/[docs.devcentr.org]
+* Docs hub: link:https://docs.devcentr.org/uniconfig/[docs.devcentr.org]
 
 [source,powershell]
 ----

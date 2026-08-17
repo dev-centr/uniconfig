@@ -5,7 +5,7 @@ enum string appDisplayName = "UniConfig Config Panel";
 enum string appVersion = "0.1.0";
 enum string appTagline = "Schema-driven Control Panel for config files";
 enum string appHomepage = "https://github.com/dev-centr/uniconfig";
-enum string appDocs = "https://docs.devcentr.org/uniconfig/latest/";
+enum string appDocs = "https://docs.devcentr.org/uniconfig/";
 
 string buildId()
 {
