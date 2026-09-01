@@ -2,6 +2,13 @@
 
 Functional notes for the desktop app. Library details: https://github.com/dev-centr/uniconfig-core
 
+== 2026-09-01 — binders monorepo and fallback-catalog rename
+
+* `profiles/` → `fallback-catalog/` (stays with app; no separate vocabulary repo)
+* Form rendering → `configui-dlangui` in link:https://github.com/dev-centr/configui-binders[configui-binders]
+* Engine gains `form_model` (`FormRow`, `flattenFormRows`)
+* Docs: sidecars only; no intra-file forks; `configui-dui` is target desktop binder
+
 == 2026-09-01 — catalog registration and developer docs
 
 * Document banner: format spec, codec source, publisher repository (or closed source)
