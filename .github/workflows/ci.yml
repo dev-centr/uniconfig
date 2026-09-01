@@ -36,11 +36,23 @@ jobs:
           path: configui-binders
       - uses: actions/checkout@v4
         with:
+          repository: dlang-supplemental/dew
+          path: dlang-supplemental/dew
+      - uses: actions/checkout@v4
+        with:
+          repository: dlang-supplemental/dui
+          path: dlang-supplemental/dui
+      - uses: actions/checkout@v4
+        with:
+          repository: dlang-supplemental/vello-d
+          path: dlang-supplemental/vello-d
+      - uses: actions/checkout@v4
+        with:
           path: uniconfig
       - uses: dlang-community/setup-dlang@v1
         with:
           compiler: ldc-latest
-      - name: Build
+      - name: Build headless
         working-directory: uniconfig
         run: dub build --config=application --build=release
       - name: CLI smoke

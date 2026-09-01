@@ -18,7 +18,7 @@ image::layers.svg[alt="Storage, meaning, and panel stacked"]
 [source,text]
 ----
 ConfigUI (app) ── registry tree, format banner, file I/O
-    └── configui-dlangui (default today; configui-dui is the target desktop binder)
+    └── configui-dui (default desktop binder; dui/dew + Vello)
             └── uniconfig.core.form_model (FormRow / flattenFormRows — in engine)
                     └── UniConfig engine (codecs, catalog index, sidecars)
                             └── fallback-catalog/ (shipped with app only)
@@ -35,9 +35,17 @@ When a file opens:
 
 No intra-file fork reader in UniConfig until connectome-fs exposes fork I/O.
 
+== Desktop renderer
+
+Default build: `dub build -c windowed` (GLFW + Vello via `configui-dui`).
+
+Headless CI smoke: `dub build -c application` (SoftwareBackend, no GPU).
+
+Legacy dlangui: `dub build -c dlangui-legacy`.
+
 == Optional Vello
 
-dlangui `vello-windows` remains experimental behind the legacy binder.
+The `dlangui-legacy` configuration keeps the older dlangui binder for comparison; the default `windowed` configuration uses dui/dew + Vello directly.
 
 == Formula
 

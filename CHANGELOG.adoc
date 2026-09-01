@@ -2,6 +2,14 @@
 
 Functional notes for the desktop app. Library details: https://github.com/dev-centr/uniconfig-core
 
+== 2026-09-01 — dui/dew default desktop shell
+
+* Default GUI: `configui-dui` + GLFW/Vello (`dub build -c windowed`)
+* Headless CI: `-c application` (SoftwareBackend)
+* Legacy dlangui: `-c dlangui-legacy`
+* Path field + registry list for open/save (no native file dialog in dew v1)
+* CI/release check out `dlang-supplemental` (dui, dew, vello-d)
+
 == 2026-09-01 — binders monorepo and fallback-catalog rename
 
 * `profiles/` → `fallback-catalog/` (stays with app; no separate vocabulary repo)

@@ -1,25 +1,28 @@
 module app;
 
-import dlangui;
-import std.conv : to;
 import uniconfig.app.cli;
-import uniconfig.app.versioninfo;
-import uniconfig.app.window;
+import uniconfig.app.session;
+import uniconfig.app.dui_host;
+import uniconfig.app.document_ops;
+import std.file : exists;
 
-mixin APP_ENTRY_POINT;
-
-extern (C) int UIAppMain(string[] args)
+int main(string[] args)
 {
     int exitCode;
     string openPath;
     if (runCli(args, exitCode, openPath))
         return exitCode;
 
-    Platform.instance.uiLanguage = "en";
-    Platform.instance.uiTheme = "theme_default";
+    PanelSession session;
+    initPanelSession(session, openPath);
+    if (openPath.length && exists(openPath))
+        loadDocumentPath(session, openPath);
+    else if (session.registry.files.length && exists(session.registry.files[0].path))
+        loadDocumentPath(session, session.registry.files[0].path);
 
-    auto win = Platform.instance.createWindow(to!dstring(appDisplayName), null, WindowFlag.Resizable, 1100, 720);
-    win.mainWidget = new PanelHost(openPath);
-    win.show();
-    return Platform.instance.enterMessageLoop();
+    version (ConfigUIWindowed)
+        runWindowedPanel(session);
+    else
+        runHeadlessPanel(session);
+    return 0;
 }

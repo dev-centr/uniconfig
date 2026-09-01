@@ -11,14 +11,46 @@ targetName "uniconfig"
 sourcePaths "source"
 importPaths "source"
 copyFiles "fallback-catalog"
-mainSourceFile "source/app.d"
 
 dependency "uniconfig-core" path="../uniconfig-core"
-dependency "configui-dlangui" path="../configui-binders/dlangui"
-dependency "dlangui" repository="git+https://github.com/dlang-supplemental/dlangui.git" version="457ffb3c856bedba5fdcf481fc0d787e4c9c1da3"
+
+configuration "windowed" {
+	targetType "executable"
+	mainSourceFile "source/app.d"
+	versions "ConfigUIWindowed"
+	excludedSourceFiles "source/app_dlangui.d" "source/uniconfig/app/window.d" "source/uniconfig/app/banner.d"
+	dependency "configui-dui" path="../configui-binders/dui"
+	dependency "dui" path="../../dlang-supplemental/dui"
+	dependency "dew" path="../../dlang-supplemental/dew"
+	dependency "tgc" version="~>0.1.1"
+	subConfiguration "dew" "gpu"
+	dependency "glfw-d" version="~>1.1.2"
+	dependency "vello-d" path="../../dlang-supplemental/vello-d"
+	platform "windows" {
+		lflags "/SUBSYSTEM:WINDOWS"
+		lflags "/LIBPATH:$VELLO_BRIDGE_DIR"
+		libs "vello_bridge" "advapi32" "userenv" "ws2_32" "bcrypt" "ntdll" "kernel32" "shell32" "ole32"
+	}
+	platform "posix" {
+		lflags "-L$VELLO_BRIDGE_DIR"
+		libs "vello_bridge" "pthread" "dl" "m"
+	}
+}
 
 configuration "application" {
 	targetType "executable"
 	mainSourceFile "source/app.d"
+	excludedSourceFiles "source/app_dlangui.d" "source/uniconfig/app/window.d" "source/uniconfig/app/banner.d"
+	dependency "configui-dui" path="../configui-binders/dui"
+	dependency "dui" path="../../dlang-supplemental/dui"
+	dependency "dew" path="../../dlang-supplemental/dew"
+	dependency "tgc" version="~>0.1.1"
 }
 
+configuration "dlangui-legacy" {
+	targetType "executable"
+	mainSourceFile "source/app_dlangui.d"
+	excludedSourceFiles "source/app.d" "source/uniconfig/app/dui_host.d" "source/uniconfig/app/panel_ui.d" "source/uniconfig/app/session.d" "source/uniconfig/app/document_ops.d"
+	dependency "configui-dlangui" path="../configui-binders/dlangui"
+	dependency "dlangui" repository="git+https://github.com/dlang-supplemental/dlangui.git" version="457ffb3c856bedba5fdcf481fc0d787e4c9c1da3"
+}

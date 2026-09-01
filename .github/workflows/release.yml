@@ -22,19 +22,42 @@ jobs:
           path: configui-binders
       - uses: actions/checkout@v4
         with:
+          repository: dlang-supplemental/dew
+          path: dlang-supplemental/dew
+      - uses: actions/checkout@v4
+        with:
+          repository: dlang-supplemental/dui
+          path: dlang-supplemental/dui
+      - uses: actions/checkout@v4
+        with:
+          repository: dlang-supplemental/vello-d
+          path: dlang-supplemental/vello-d
+      - uses: actions/checkout@v4
+        with:
           path: uniconfig
       - uses: dlang-community/setup-dlang@v1
         with:
           compiler: ldc-latest
-      - name: Build
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Build windowed
         working-directory: uniconfig
-        run: dub build --config=application --build=release --compiler=ldc2
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRIDGE_ROOT="../dlang-supplemental/vello-d/vello_bridge"
+          cargo build --release --manifest-path "$BRIDGE_ROOT/Cargo.toml"
+          VELLO_BRIDGE_DIR="$(cd "$BRIDGE_ROOT/target/release" && pwd -W)"
+          export VELLO_BRIDGE_DIR
+          export DFLAGS="-L=${VELLO_BRIDGE_DIR}/vello_bridge.dll.lib"
+          dub build --config=windowed --build=release --compiler=ldc2
+          cp "${VELLO_BRIDGE_DIR}/vello_bridge.dll" .
       - name: Pack
         working-directory: uniconfig
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force -Path dist | Out-Null
           Copy-Item uniconfig.exe dist/uniconfig-windows-amd64.exe
+          Copy-Item vello_bridge.dll dist/ -ErrorAction SilentlyContinue
           Copy-Item -Recurse fallback-catalog dist/fallback-catalog
           Compress-Archive -Path dist\* -DestinationPath uniconfig-windows-amd64.zip -Force
       - uses: softprops/action-gh-release@v2
