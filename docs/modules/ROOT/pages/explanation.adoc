@@ -36,18 +36,14 @@ Registration is lazy: catalogs load when needed, stale paths prune on read. No m
 . Register the catalog path on startup (`registerCatalogSource`)
 . Provide a repository URL or declare closed source (required metadata)
 
-See xref:howto-ship-vocabulary.adoc[Ship vocabulary]. The curated fallback pack (`uniconfig-profiles`, planned separate repo) is only for tools like Git that will never opt in.
+See xref:howto-ship-vocabulary.adoc[Ship vocabulary]. The bundled `fallback-catalog/` in the ConfigUI app covers Git/Terraform/DUB only.
 
 == What ConfigUI still does locally
 
 * **Register after touch** — opened file paths in `registry.sdl` (left tree)
-* **Round-trip** — write instance back to the project's config file; vocabulary stays in catalog/schema, not duplicated into every save
+* **Round-trip** — write instance back to the project's config file; vocabulary stays in catalog/schema or sidecars
 
 HCL programs and `for_each` stay out of v0.1; `.tfvars` assignments are in.
-
-== Forward: connectome-fs intra-file forks
-
-Partner project connectome-fs documents **intra-file resource forks** (`/data`, `/schema`, `/meta`) — schema and instance co-located in one file with lazy fork reads, without sidecar sprawl. That slots into the resolver ladder before external sidecars. link:https://connectome-fs.github.io/connectome-fs/docs/explanation/intra-file-resource-forks.html[Intra-file resource forks].
 
 == Related HCI writing
 

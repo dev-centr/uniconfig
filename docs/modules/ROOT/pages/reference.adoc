@@ -31,7 +31,7 @@ BOM-prefixed UTF-8 is stripped on read.
 | Registry | `%LOCALAPPDATA%\UniConfig\registry.sdl`
 | Catalog index | `%LOCALAPPDATA%\UniConfig\catalog-index.sdl`
 | Debug dump | `%LOCALAPPDATA%\UniConfig\debug-dump.txt`
-| Bundled profiles | `profiles/` next to the executable (fallback pack)
+| Bundled fallback | `fallback-catalog/` next to the executable
 |===
 
 Updates in v0.1 are the GitHub Releases page (no in-app downloader yet). Portable zip is the installer channel until MSI/winget land.

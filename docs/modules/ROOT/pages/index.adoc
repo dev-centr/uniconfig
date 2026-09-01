@@ -18,7 +18,7 @@ Syntax parsers live in the engine. **Semantic vocabulary** (which fields exist) 
 
 See xref:howto-ship-vocabulary.adoc[Ship vocabulary with your app]. You do not open PRs to UniConfig for normal app settings.
 
-Bundled `profiles/` beside the executable is a **fallback pack** for Git, DUB, Terraform, and similar tools that never ship their own catalog.
+Bundled `fallback-catalog/` beside the executable covers Git, DUB, Terraform, and similar tools that never ship their own vocabulary.
 
 == Get it
 

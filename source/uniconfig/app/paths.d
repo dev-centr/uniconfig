@@ -6,16 +6,19 @@ import std.algorithm : splitter;
 import std.string : strip;
 import uniconfig.core.registry : defaultConfigDir, defaultRegistryPath;
 
-string bundledProfilesDir()
+string bundledFallbackCatalogDir()
 {
-    auto nextToExe = buildPath(dirName(thisExePath), "profiles");
+    auto nextToExe = buildPath(dirName(thisExePath), "fallback-catalog");
     if (exists(nextToExe) && isDir(nextToExe))
         return nextToExe;
-    auto cwd = buildPath("profiles");
+    auto cwd = buildPath("fallback-catalog");
     if (exists(cwd) && isDir(cwd))
         return cwd;
     return nextToExe;
 }
+
+/// Legacy name — prefer `bundledFallbackCatalogDir`.
+alias bundledProfilesDir = bundledFallbackCatalogDir;
 
 string userConfigDir()
 {

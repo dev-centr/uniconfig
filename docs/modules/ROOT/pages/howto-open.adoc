@@ -4,7 +4,7 @@
 
 . Run `uniconfig` (or `uniconfig path\to\file`).
 . File -> Open. Filters cover JSON, YAML, TOML, INI/cfg, SDLang, and `*.tfvars`.
-. If a profile glob matches (`profiles/catalog.sdl`), that JSON Schema overlays the file. Unset optional keys show with an **include** checkbox.
+. If a catalog glob matches (`fallback-catalog/catalog.sdl`), that JSON Schema overlays the file. Unset optional keys show with an **include** checkbox.
 . Check include, fill the control, File -> Save. Keys you leave unchecked stay out of the file.
 . The left **Registry** tree stores the path in `%LOCALAPPDATA%\UniConfig\registry.sdl` (Unix: `$XDG_CONFIG_HOME/uniconfig/registry.sdl`).
 
@@ -13,7 +13,7 @@ CLI without a window:
 [source,powershell]
 ----
 uniconfig dump .\fixtures\sample.gitconfig
-uniconfig validate .\profiles\settings.example.sdl
+uniconfig validate .\fallback-catalog\settings.example.sdl
 ----
 
 `dump` prints the merged JSON and lists unset schema fields as comments.
@@ -22,4 +22,4 @@ uniconfig validate .\profiles\settings.example.sdl
 
 App developers register vocabulary in their own repo — see xref:howto-ship-vocabulary.adoc[Ship vocabulary with your app].
 
-Bundled `profiles/catalog.sdl` beside the executable is a **fallback pack** for common third-party tools, not the primary extension path.
+Bundled `fallback-catalog/catalog.sdl` beside the executable is for common third-party tools, not the primary extension path.

@@ -53,7 +53,7 @@ Embed only the form binder inside your window — same engine + vocabulary, no g
 
 == Bundle ConfigUI with your installer
 
-. Ship `uniconfig` + `profiles/` fallback pack beside your exe **or** install to `%LOCALAPPDATA%\Programs\ConfigUI\`.
+. Ship `uniconfig` + `fallback-catalog/` beside your exe **or** install to `%LOCALAPPDATA%\Programs\ConfigUI\`.
 . On first run, call xref:howto-ship-vocabulary.adoc[registerCatalogSource] — do not rely on the installer alone unless it writes the same `catalog-index.sdl` entry.
 . Add an in-app **Settings…** action that launches ConfigUI on your config path.
 

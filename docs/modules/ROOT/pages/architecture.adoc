@@ -1,14 +1,14 @@
 = Architecture
-:description: UniConfig engine, vocabulary index, components, ConfigUI shell.
+:description: UniConfig engine, binders, ConfigUI shell, sidecar vocabulary.
 :navtitle: Architecture
 
 == Repositories
 
 [cols="1,2"]
 |===
-| `uniconfig-core` | D library: codecs, schema merge, catalog index API, profile resolver, file registry. No GUI.
-| `uniconfig` | ConfigUI desktop app (binary `uniconfig`): dlangui shell, form binder, bundled fallback profiles.
-| `uniconfig-profiles` (planned) | Curated fallback vocabulary for tools that never ship their own catalog.
+| `uniconfig-core` | Engine: codecs, schema merge, `form_model`, catalog index, profile resolver, registry.
+| `configui-binders` | Toolkit binders (dui, dlangui, Qt, GTK, Avalonia, web).
+| `uniconfig` | ConfigUI app shell + `fallback-catalog/` for Git/Terraform/DUB when those tools never ship vocabulary.
 |===
 
 image::layers.svg[alt="Storage, meaning, and panel stacked"]
@@ -18,37 +18,27 @@ image::layers.svg[alt="Storage, meaning, and panel stacked"]
 [source,text]
 ----
 ConfigUI (app) ── registry tree, format banner, file I/O
-    └── dlangui binder (form.d; split planned)
-            └── form model [planned: uniconfig-form]
-                    └── UniConfig engine
-                            ├── codecs (syntax)
-                            ├── catalog-index.sdl (user-local pointers)
-                            └── lazy ProfileResolver
-                                    └── app-shipped catalogs + optional fallback pack
+    └── configui-dlangui (default today; configui-dui is the target desktop binder)
+            └── uniconfig.core.form_model (FormRow / flattenFormRows — in engine)
+                    └── UniConfig engine (codecs, catalog index, sidecars)
+                            └── fallback-catalog/ (shipped with app only)
 ----
 
-== Vocabulary discovery (lazy)
+== Vocabulary discovery
 
-When a file opens, the engine:
+When a file opens:
 
-. Reads `%LOCALAPPDATA%\UniConfig\catalog-index.sdl` (prunes missing paths)
-. Loads matching registered `catalog.sdl` + schema on demand
-. Falls back to bundled profiles (Git, DUB, tfvars, …)
-. Tries sidecar / `$schema` pointers
-. Infers types from instance keys
+. Registered app catalogs (`catalog-index.sdl`)
+. Bundled `fallback-catalog/` (third-party tools only)
+. Sidecar `*.schema.json` / `$schema`
+. On-the-fly inference
 
-No merged mega-catalog on disk. See xref:howto-ship-vocabulary.adoc[Ship vocabulary].
-
-== Connectome-fs alignment (forward)
-
-Intra-file `/schema` and `/data` forks (see link:https://connectome-fs.github.io/connectome-fs/docs/explanation/intra-file-resource-forks.html[Intra-file resource forks]) will slot into the resolver **before** external sidecars — same schema − instance model, co-located streams.
+No intra-file fork reader in UniConfig until connectome-fs exposes fork I/O.
 
 == Optional Vello
 
-dlangui `vello-windows` is experimental GPU clear behind GDI widgets. Default builds use dlangui `default`.
+dlangui `vello-windows` remains experimental behind the legacy binder.
 
-== Formula (sanity)
+== Formula
 
 stem:[n_{\text{unset}} = \lvert S \setminus I \rvert]
-
-where stem:[S] is the schema property set and stem:[I] is the instance key set.

@@ -92,7 +92,7 @@ Call `unregisterCatalogSource("com.mycompany.myapp")` from your uninstaller, or 
 
 == Fallback pack (optional)
 
-Popular third-party tools (Git, Terraform, DUB) that never ship their own vocabulary may appear in the separate `uniconfig-profiles` curated pack. That is **not** the normal extension path for your app.
+Popular third-party tools may appear in the app's bundled `fallback-catalog/` only. That is **not** the normal extension path for your app.
 
 == Related
 

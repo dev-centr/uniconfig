@@ -9,7 +9,7 @@ import std.path : baseName;
 import std.process : browse;
 import uniconfig.core;
 import uniconfig.app.cli : makeOpenContext, writeDebugDump;
-import uniconfig.app.form;
+import configui.dlangui.form;
 import uniconfig.app.banner;
 import uniconfig.app.paths;
 import uniconfig.app.versioninfo;

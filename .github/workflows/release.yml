@@ -18,6 +18,10 @@ jobs:
           path: uniconfig-core
       - uses: actions/checkout@v4
         with:
+          repository: dev-centr/configui-binders
+          path: configui-binders
+      - uses: actions/checkout@v4
+        with:
           path: uniconfig
       - uses: dlang-community/setup-dlang@v1
         with:
@@ -31,7 +35,7 @@ jobs:
         run: |
           New-Item -ItemType Directory -Force -Path dist | Out-Null
           Copy-Item uniconfig.exe dist/uniconfig-windows-amd64.exe
-          Copy-Item -Recurse profiles dist/profiles
+          Copy-Item -Recurse fallback-catalog dist/fallback-catalog
           Compress-Archive -Path dist\* -DestinationPath uniconfig-windows-amd64.zip -Force
       - uses: softprops/action-gh-release@v2
         with:

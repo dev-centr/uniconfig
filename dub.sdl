@@ -10,10 +10,11 @@ targetType "executable"
 targetName "uniconfig"
 sourcePaths "source"
 importPaths "source"
-copyFiles "profiles"
+copyFiles "fallback-catalog"
 mainSourceFile "source/app.d"
 
 dependency "uniconfig-core" path="../uniconfig-core"
+dependency "configui-dlangui" path="../configui-binders/dlangui"
 dependency "dlangui" repository="git+https://github.com/dlang-supplemental/dlangui.git" version="457ffb3c856bedba5fdcf481fc0d787e4c9c1da3"
 
 configuration "application" {

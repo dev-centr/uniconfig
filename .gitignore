@@ -7,8 +7,8 @@
 !dub.sdl
 !source/
 !source/**
-!profiles/
-!profiles/**
+!fallback-catalog/
+!fallback-catalog/**
 !fixtures/
 !fixtures/**
 !docs/

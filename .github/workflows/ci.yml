@@ -32,6 +32,10 @@ jobs:
           path: uniconfig-core
       - uses: actions/checkout@v4
         with:
+          repository: dev-centr/configui-binders
+          path: configui-binders
+      - uses: actions/checkout@v4
+        with:
           path: uniconfig
       - uses: dlang-community/setup-dlang@v1
         with:
@@ -44,4 +48,4 @@ jobs:
         shell: pwsh
         run: |
           .\uniconfig.exe --version
-          .\uniconfig.exe dump .\profiles\settings.example.sdl
+          .\uniconfig.exe dump .\fallback-catalog\settings.example.sdl
