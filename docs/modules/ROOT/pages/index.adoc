@@ -1,33 +1,50 @@
 = UniConfig Config Panel
-:description: Schema-driven Control Panel for config files that never grew their own settings UI.
+:description: Schema-driven settings UI for config files — ConfigUI app plus UniConfig engine.
 :navtitle: Introduction
 
-**UniConfig Config Panel** is a desktop app (D + dlangui) that opens ordinary config files — INI, YAML, TOML, SDLang, JSON, `tfvars` — and shows the same settings metaphors every time: labels, enums, toggles, descriptions, and **fields the author never wrote**.
+**ConfigUI** (binary `uniconfig`) opens ordinary config files — INI, YAML, TOML, SDLang, JSON, `tfvars` — and shows the same settings widgets every time: labels, enums, toggles, descriptions, and **fields the author never wrote**.
 
-The reusable engine lives in a second package, link:https://github.com/dev-centr/uniconfig-core[uniconfig-core], so DevCentr can depend on the tree without pulling a GUI.
+The reusable engine is link:https://github.com/dev-centr/uniconfig-core[uniconfig-core] (UniConfig). DevCentr and third-party apps depend on the engine without pulling a GUI.
 
-image::layers.svg[alt="Three layers: storage formats, schema meaning, generic panel"]
+image::layers.svg[alt="Engine, vocabulary, form binder, ConfigUI shell"]
+
+== How vocabulary works
+
+Syntax parsers live in the engine. **Semantic vocabulary** (which fields exist) ships with **your app**:
+
+. Add `uniconfig/catalog.sdl` + JSON Schema beside your product.
+. Call `registerCatalogSource` on startup — writes a pointer in `%LOCALAPPDATA%\UniConfig\catalog-index.sdl`.
+. ConfigUI lazy-loads that catalog when a matching file opens.
+
+See xref:howto-ship-vocabulary.adoc[Ship vocabulary with your app]. You do not open PRs to UniConfig for normal app settings.
+
+Bundled `profiles/` beside the executable is a **fallback pack** for Git, DUB, Terraform, and similar tools that never ship their own catalog.
 
 == Get it
 
 * Releases: link:https://github.com/dev-centr/uniconfig/releases[GitHub Releases]
-* Library: link:https://github.com/dev-centr/uniconfig-core[uniconfig-core]
-* Docs hub: link:https://docs.devcentr.org/uniconfig/[docs.devcentr.org]
+* Engine: link:https://github.com/dev-centr/uniconfig-core[uniconfig-core]
 
 [source,powershell]
 ----
 uniconfig .\fixtures\sample.gitconfig
-uniconfig dump .\profiles\settings.example.sdl
-uniconfig --version
+uniconfig register-catalog --id com.example.app --catalog .\uniconfig\catalog.sdl --repository https://github.com/example/app
+uniconfig dump .\fixtures\sample.gitconfig
 ----
+
+== Developer docs
+
+* xref:howto-ship-vocabulary.adoc[Ship vocabulary with your app]
+* xref:howto-embed-configui.adoc[Embed or launch ConfigUI]
+* xref:howto-components.adoc[Engine and UI components]
+* xref:architecture.adoc[Architecture]
 
 == Companion writing
 
 * News: link:https://devcentr.org/news/2026-08-17-config-files-get-a-control-panel[Config files get a Control Panel]
-* HCI: link:https://hci-nerdz.github.io/blog/when-config-files-withhold-the-vocabulary/[When config files withhold the vocabulary]
+* HCI: link:https://hci-nerdz.github.io/blog/config-ui-as-the-field-vocabulary/[Config UI as the field vocabulary]
 
 == Related
 
 * Portal: xref:home:tools/uniconfig.adoc[UniConfig (portal)]
-* Engine: link:https://github.com/dev-centr/uniconfig-core[uniconfig-core]
 * dlangui fork / Vello: xref:home:tools/dlangui.adoc[dlangui]

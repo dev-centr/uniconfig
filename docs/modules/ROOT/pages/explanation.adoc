@@ -1,8 +1,8 @@
 = Why a generic config panel
-:description: Formats are syntax. Settings UIs need a shared vocabulary that text files hide.
+:description: Formats are syntax. Settings UIs need vocabulary you can discover — usually shipped by the app, not the editor.
 :navtitle: Why
 
-A config file without a schema is a photograph of the keys someone happened to need. The rest of the legal vocabulary -- enums, defaults, descriptions -- lives in docs, provider plugins, or someone else's example.
+A config file without a schema is a photograph of the keys someone happened to need. The rest of the legal vocabulary — enums, defaults, descriptions — lives in docs, provider plugins, or someone else's example.
 
 Linux already solved this for **opt-in apps**: GSettings schemas plus dconf-editor, or KDE KConfigXT. Windows Group Policy templates do the same from ADMX. Developers get a weaker cousin: SchemaStore plus editor completion.
 
@@ -10,15 +10,45 @@ Nothing trustworthy sits in the middle: open *this* Terraform tfvars, *that* `du
 
 image::schema-minus-instance.svg[alt="Left: two-line gitconfig. Right: panel listing unset email and autocrlf"]
 
-UniConfig treats that gap as the product:
+== Two layers (do not confuse them)
 
-* **On-the-fly** -- open a file, infer types from what is present.
-* **Register after touch** -- the left tree remembers paths in `registry.sdl`.
-* **Catalog** -- SDLang profiles map globs onto JSON Schema so unset fields appear.
+[cols="1,2"]
+|===
+| Syntax / codec | INI, YAML, TOML, SDLang, HCL-lite — parsers in uniconfig-core. Always in the engine.
+| Vocabulary / schema | Which fields exist, types, enums — JSON Schema reached via catalog profiles. **Shipped by app authors**, registered on the user's machine.
+|===
 
-The hard work is not the widgets. It is round-trip plus schema adapters. HCL programs and `for_each` stay out of v0.1; `.tfvars` assignments are in.
+You are not loading profiles to parse profiles. You parse with codecs; you overlay vocabulary from catalogs.
 
-Related HCI argument (settings as bound work, not a warehouse):
-link:https://hci-nerdz.github.io/blog/when-settings-live-across-town/[When settings live across town]
-and the companion
-link:https://hci-nerdz.github.io/blog/when-config-files-withhold-the-vocabulary/[When config files withhold the vocabulary].
+== ConfigUI's resolution ladder
+
+When a file opens, the engine tries, in order:
+
+. Glob match from **registered app catalogs** (`catalog-index.sdl`) or bundled fallback
+. Sidecar / `$schema` next to the file
+. **On-the-fly inference** from instance keys (weakest — no unset fields)
+
+Registration is lazy: catalogs load when needed, stale paths prune on read. No merged mega-catalog on disk.
+
+== What app developers do
+
+. Ship `uniconfig/catalog.sdl` + schemas in **their repo**
+. Register the catalog path on startup (`registerCatalogSource`)
+. Provide a repository URL or declare closed source (required metadata)
+
+See xref:howto-ship-vocabulary.adoc[Ship vocabulary]. The curated fallback pack (`uniconfig-profiles`, planned separate repo) is only for tools like Git that will never opt in.
+
+== What ConfigUI still does locally
+
+* **Register after touch** — opened file paths in `registry.sdl` (left tree)
+* **Round-trip** — write instance back to the project's config file; vocabulary stays in catalog/schema, not duplicated into every save
+
+HCL programs and `for_each` stay out of v0.1; `.tfvars` assignments are in.
+
+== Forward: connectome-fs intra-file forks
+
+Partner project connectome-fs documents **intra-file resource forks** (`/data`, `/schema`, `/meta`) — schema and instance co-located in one file with lazy fork reads, without sidecar sprawl. That slots into the resolver ladder before external sidecars. link:https://connectome-fs.github.io/connectome-fs/docs/explanation/intra-file-resource-forks.html[Intra-file resource forks].
+
+== Related HCI writing
+
+link:https://hci-nerdz.github.io/blog/making-settings-follow-the-activity/[Making settings follow the activity] (where settings sit relative to work) and link:https://hci-nerdz.github.io/blog/config-ui-as-the-field-vocabulary/[Config UI as the field vocabulary] (what the surface is allowed to name).

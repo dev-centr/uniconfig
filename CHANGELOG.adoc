@@ -8,6 +8,7 @@ Functional notes for the desktop app. Library details: https://github.com/dev-ce
 * CLI `register-catalog` / `unregister-catalog`
 * Developer how-tos: ship vocabulary, embed ConfigUI, components stack
 * Uses uniconfig-core catalog index + lazy profile resolver
+* Refreshed `index.adoc` and `explanation.adoc` for registration model
 
 == 2026-08-17 — v0.1.0
 
