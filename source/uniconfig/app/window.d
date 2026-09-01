@@ -10,6 +10,7 @@ import std.process : browse;
 import uniconfig.core;
 import uniconfig.app.cli : makeOpenContext, writeDebugDump;
 import uniconfig.app.form;
+import uniconfig.app.banner;
 import uniconfig.app.paths;
 import uniconfig.app.versioninfo;
 
@@ -228,13 +229,17 @@ class PanelHost : AppFrame
 
     void refreshForm()
     {
+        auto outer = new VerticalLayout();
+        outer.layoutWidth(FILL_PARENT).layoutHeight(FILL_PARENT);
+        outer.addChild(buildDocumentBanner(doc));
         auto form = buildForm(doc.merged, {
             doc.dirty = true;
             setStatus("Modified");
         });
         form.layoutWidth(FILL_PARENT).layoutHeight(FILL_PARENT);
+        outer.addChild(form);
         split.removeChild(formHost);
-        formHost = form;
+        formHost = outer;
         split.addChild(formHost);
         split.invalidate();
     }

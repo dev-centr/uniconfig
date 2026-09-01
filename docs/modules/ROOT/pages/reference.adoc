@@ -9,6 +9,8 @@
 | `uniconfig [FILE]` | Open the panel. Optional path loads immediately.
 | `uniconfig dump FILE` | Print merged JSON plus unset schema fields.
 | `uniconfig validate FILE` | Report missing required fields.
+| `uniconfig register-catalog --id ID --catalog PATH (--repository URL \| --closed-source)` | Register app vocabulary in user-local index.
+| `uniconfig unregister-catalog ID` | Remove a catalog registration.
 | `uniconfig debug-dump` | Redacted support dump (paths, versions; no secrets).
 | `--version` / `-V` | Stamp from `versioninfo` (same number as About).
 | `--help` / `-h` | Usage.
@@ -27,8 +29,9 @@ BOM-prefixed UTF-8 is stripped on read.
 [cols="1,2"]
 |===
 | Registry | `%LOCALAPPDATA%\UniConfig\registry.sdl`
+| Catalog index | `%LOCALAPPDATA%\UniConfig\catalog-index.sdl`
 | Debug dump | `%LOCALAPPDATA%\UniConfig\debug-dump.txt`
-| Bundled profiles | `profiles/` next to the executable
+| Bundled profiles | `profiles/` next to the executable (fallback pack)
 |===
 
 Updates in v0.1 are the GitHub Releases page (no in-app downloader yet). Portable zip is the installer channel until MSI/winget land.

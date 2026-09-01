@@ -43,6 +43,22 @@ bool runCli(string[] args, out int exitCode, out string openPath)
         validateFile(rest[1]);
         return true;
     }
+    if (rest[0] == "register-catalog" && rest.length >= 2)
+    {
+        exitCode = runRegisterCatalog(rest[1 .. $]);
+        return true;
+    }
+    if (rest[0] == "unregister-catalog" && rest.length >= 2)
+    {
+        if (unregisterCatalogSource(rest[1]))
+            writeln("unregistered ", rest[1]);
+        else
+        {
+            stderr.writeln("unknown catalog id: ", rest[1]);
+            exitCode = 1;
+        }
+        return true;
+    }
     if (!rest[0].startsWith("-"))
     {
         openPath = rest[0];
@@ -63,6 +79,8 @@ Usage:
   uniconfig [FILE]
   uniconfig dump FILE
   uniconfig validate FILE
+  uniconfig register-catalog --id ID --catalog PATH (--repository URL | --closed-source) [--registered-by APP/VER]
+  uniconfig unregister-catalog ID
   uniconfig debug-dump
   uniconfig --version
   uniconfig --help
@@ -110,13 +128,45 @@ OpenContext makeOpenContext()
     auto dir = bundledProfilesDir();
     ctx.bundledSchemaDir = dir;
     ctx.profileCatalogDir = dir;
-    auto cat = buildPathSafe(dir, "catalog.sdl");
-    import std.file : exists;
-    if (exists(cat))
-        ctx.profiles = loadProfileCatalogFile(cat);
-    else
-        ctx.profiles = loadProfileDirectory(dir);
+    ctx.resolver = makeProfileResolver(dir, true);
+    ctx.hasResolver = true;
+    ctx.profiles = ctx.resolver.allProfiles();
     return ctx;
+}
+
+int runRegisterCatalog(string[] args)
+{
+    string id, catalog, repo, registeredBy;
+    bool closed;
+    for (size_t i = 0; i < args.length; i++)
+    {
+        if (args[i] == "--id" && i + 1 < args.length)
+            id = args[++i];
+        else if (args[i] == "--catalog" && i + 1 < args.length)
+            catalog = args[++i];
+        else if (args[i] == "--repository" && i + 1 < args.length)
+            repo = args[++i];
+        else if (args[i] == "--registered-by" && i + 1 < args.length)
+            registeredBy = args[++i];
+        else if (args[i] == "--closed-source")
+            closed = true;
+    }
+    if (id.length == 0 || catalog.length == 0)
+    {
+        stderr.writeln("register-catalog requires --id and --catalog");
+        return 2;
+    }
+    try
+    {
+        registerCatalogSource(id, catalog, CatalogRegistration(registeredBy, repo, closed));
+        writeln("registered ", id, " → ", catalog);
+        return 0;
+    }
+    catch (Exception e)
+    {
+        stderr.writeln(e.msg);
+        return 1;
+    }
 }
 
 private string buildPathSafe(string a, string b)
@@ -135,6 +185,7 @@ string writeDebugDump()
         ~ coreName ~ " " ~ coreVersion ~ "\n"
         ~ "time=" ~ Clock.currTime.toISOExtString ~ "\n"
         ~ "profiles=" ~ bundledProfilesDir() ~ "\n"
+        ~ "catalog-index=" ~ catalogIndexFile() ~ "\n"
         ~ "registry=" ~ registryFile() ~ "\n"
         ~ "HOME=" ~ environment.get("HOME", "") ~ "\n"
         ~ "LOCALAPPDATA set=" ~ (environment.get("LOCALAPPDATA").length ? "yes" : "no") ~ "\n";

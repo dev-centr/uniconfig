@@ -20,4 +20,6 @@ uniconfig validate .\profiles\settings.example.sdl
 
 == Ship your own profile
 
-Add a `profile "id" { }` block to `profiles/catalog.sdl` (shipped beside the exe) or a user catalog later. Point `schema` at a draft-07 JSON Schema. `glob` matches the basename or a path glob.
+App developers register vocabulary in their own repo — see xref:howto-ship-vocabulary.adoc[Ship vocabulary with your app].
+
+Bundled `profiles/catalog.sdl` beside the executable is a **fallback pack** for common third-party tools, not the primary extension path.

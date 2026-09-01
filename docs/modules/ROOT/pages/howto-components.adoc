@@ -1,0 +1,88 @@
+= Engine and UI components
+:description: UniConfig layers — engine, vocabulary, form model, binders, ConfigUI shell.
+:navtitle: Components
+
+== Stack
+
+[source,text]
+----
+ConfigUI (app shell — registry tree, menus, About)
+    └── dlangui binder (form.d today; split planned)
+            └── form model (field list, include toggles, validation) [planned extract]
+                    └── UniConfig engine (uniconfig-core)
+                            └── codecs + schema merge + catalog index API
+                                    └── optional uniconfig-profiles fallback pack
+----
+
+== Engine (`uniconfig-core`)
+
+DUB dependency for any project:
+
+[source,sdl]
+----
+dependency "uniconfig-core" version="0.1.0"
+----
+
+Public import: `import uniconfig.core;`
+
+Capabilities:
+
+* Parse JSON, JSON5-lite, YAML-lite, TOML, INI/cfg, SDLang, HCL-lite (tfvars)
+* JSON Schema subset overlay (schema − instance)
+* `registerCatalogSource` / `unregisterCatalogSource` (user-local index)
+* `ProfileResolver` — lazy merge of bundled + registered catalogs
+* `registry.sdl` for opened-file history (ConfigUI)
+
+No GUI. Safe for servers, CLIs, and custom toolkits.
+
+== Vocabulary catalog (your repo)
+
+See xref:howto-ship-vocabulary.adoc[Ship vocabulary]. Not part of the engine binary — register at runtime.
+
+Optional curated fallback: `uniconfig-profiles` repository (Git, Terraform, DUB, …).
+
+== Form model + binders (roadmap)
+
+Today the dlangui form lives in `uniconfig/source/uniconfig/app/form.d`. The split target:
+
+| Package | Role |
+| --- | --- |
+| `uniconfig-form` | Toolkit-agnostic `ConfigNode` → field rows, include toggles, dirty state |
+| `configui-dlangui` | Renders form model with dlangui widgets |
+| Future binders | Web, Qt, etc. |
+
+Third-party apps can depend on engine-only now; depend on form + binder when published.
+
+== ConfigUI shell
+
+Desktop binary (`uniconfig`). Responsibilities:
+
+* File open/save, registry sidebar, format banner (spec, codec, publisher links)
+* Bundled fallback profiles
+* CLI: `dump`, `validate`, `register-catalog`
+
+== Build a new binder
+
+. Depend on `uniconfig-core`.
+. Walk `OpenedDocument.merged` (`ConfigNode` tree) or wait for `uniconfig-form`.
+. Call `openDocument` / `saveDocument` for round-trip.
+. Register your vocabulary catalog on app startup.
+
+Submit codec fixes to link:https://github.com/dev-centr/uniconfig-core[uniconfig-core]. Submit vocabulary to **your** repo, not DevCentr's, unless maintaining a fallback profile.
+
+== Config format hierarchy
+
+UniConfig maps all supported formats to a **tree** internally:
+
+| Format | Hierarchy |
+| --- | --- |
+| JSON / YAML / TOML / SDLang | Native nested keys |
+| INI / cfg / gitconfig | `[section]` headers → object children |
+| HCL-lite (tfvars) | Top-level assignments → flat or nested keys |
+
+The panel renders that tree regardless of whether the on-disk syntax looked hierarchical. INI sections become nested groups in the form.
+
+== Related
+
+* xref:architecture.adoc[Architecture]
+* xref:howto-embed-configui.adoc[Embed ConfigUI]

@@ -1,0 +1,76 @@
+= Embed or launch ConfigUI
+:description: Bundle ConfigUI, detect an existing install, and open full or scoped settings UI.
+:navtitle: Embed ConfigUI
+
+== Three integration levels
+
+[cols="1,2"]
+|===
+| Engine only | Depend on link:https://github.com/dev-centr/uniconfig-core[uniconfig-core]; register vocabulary; build your own UI.
+| Component (future) | Depend on form model + a toolkit binder when split from the desktop shell.
+| Full ConfigUI | Ship or invoke the `uniconfig` binary; users get the registry tree + generic panel.
+|===
+
+== Detect an existing install
+
+Before bundling another copy, check for ConfigUI on the machine:
+
+* Sibling `uniconfig.exe` / `uniconfig` next to your app
+* `%LOCALAPPDATA%\Programs\ConfigUI\uniconfig.exe` (Windows)
+* `uniconfig` on `PATH`
+
+The D helper `findConfigUiExecutable()` (in the ConfigUI app sources today; moving to a shared embed module) returns the path or an empty string.
+
+**Policy:** prefer the user's existing install when versions are compatible; bundle only when none is found or you require a pinned version.
+
+== Launch modes
+
+=== Full ConfigUI
+
+Open the main tree. Your registered catalog appears when the user opens matching files:
+
+[source,powershell]
+----
+uniconfig "C:\Users\me\AppData\Local\MyApp\myapp-settings.toml"
+----
+
+Your app can spawn that after `registerCatalogSource` on startup.
+
+=== Scoped to your profile (planned)
+
+Pass a profile filter so the left tree highlights your section first:
+
+[source,powershell]
+----
+uniconfig --profile com.mycompany.myapp/settings path\to\file
+----
+
+(Flag wiring is roadmap; registration + open path works today.)
+
+=== Pared-down shell (roadmap)
+
+Embed only the form binder inside your window — same engine + vocabulary, no global registry chrome. See xref:howto-components.adoc[Components].
+
+== Bundle ConfigUI with your installer
+
+. Ship `uniconfig` + `profiles/` fallback pack beside your exe **or** install to `%LOCALAPPDATA%\Programs\ConfigUI\`.
+. On first run, call xref:howto-ship-vocabulary.adoc[registerCatalogSource] — do not rely on the installer alone unless it writes the same `catalog-index.sdl` entry.
+. Add an in-app **Settings…** action that launches ConfigUI on your config path.
+
+== In-process engine (no window)
+
+[source,d]
+----
+import uniconfig.core;
+
+auto ctx = makeOpenContext(); // resolver + bundled fallback
+auto doc = openDocument("settings.toml", ctx);
+// read doc.merged, render your own controls, saveDocument(doc)
+----
+
+Use this when you want native settings UI without shipping the full desktop shell.
+
+== Related
+
+* xref:howto-ship-vocabulary.adoc[Ship vocabulary]
+* xref:reference.adoc[CLI reference]

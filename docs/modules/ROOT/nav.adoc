@@ -1,6 +1,10 @@
 * xref:index.adoc[Introduction]
 * xref:explanation.adoc[Why a generic config panel]
-* xref:howto-open.adoc[How-to: open and register]
+* How-to
+** xref:howto-open.adoc[Open and register files]
+** xref:howto-ship-vocabulary.adoc[Ship vocabulary with your app]
+** xref:howto-embed-configui.adoc[Embed or launch ConfigUI]
+** xref:howto-components.adoc[Engine and UI components]
 * xref:reference.adoc[CLI and formats]
 * xref:architecture.adoc[Architecture]
 * xref:changelog.adoc[Changelog]

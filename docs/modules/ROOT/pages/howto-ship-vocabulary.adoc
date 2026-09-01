@@ -1,0 +1,101 @@
+= Ship vocabulary with your app
+:description: Register a JSON Schema catalog so ConfigUI discovers your settings without a central PR.
+:navtitle: Ship vocabulary
+
+Apps that use UniConfig ship a **vocabulary catalog** in their own repository — not in DevCentr's fallback pack.
+
+== Layout
+
+[source,text]
+----
+MyApp/
+  uniconfig/
+    catalog.sdl
+    settings.schema.json
+----
+
+`catalog.sdl` maps filename globs onto JSON Schema files:
+
+[source,sdl]
+----
+profile "com.mycompany.myapp/settings" {
+    title "MyApp settings"
+    glob "myapp-settings.toml"
+    format "toml"
+    schema "settings.schema.json"
+    description "User preferences for MyApp"
+}
+----
+
+Use a **namespaced profile id** (`com.vendor.app/...`) so catalogs do not collide when ConfigUI merges sources.
+
+== Register on startup
+
+Call once per process (idempotent every launch):
+
+[source,d]
+----
+import uniconfig.core;
+
+void main()
+{
+    registerCatalogSource(
+        "com.mycompany.myapp",
+        "/path/to/uniconfig/catalog.sdl",
+        CatalogRegistration(
+            registeredBy: "MyApp/1.2.0",
+            repositoryUrl: "https://github.com/mycompany/myapp"
+        )
+    );
+}
+----
+
+Registration writes a pointer into the user-local index:
+
+* Windows: `%LOCALAPPDATA%\UniConfig\catalog-index.sdl`
+* Unix: `$XDG_CONFIG_HOME/uniconfig/catalog-index.sdl`
+
+ConfigUI reads that index **when a file is opened**, loads the matching catalog, and lazy-loads the schema. Missing catalogs (uninstalled apps) are pruned automatically.
+
+== Repository metadata (required)
+
+Every registered catalog must declare where the publisher lives:
+
+* `repositoryUrl` in `CatalogRegistration`, **or**
+* `repository-closed-source true` when the repo is private
+
+ConfigUI shows the repository link in the document banner (greyed *Closed source* when applicable). Downstream developers cannot skip this — registration fails without one of the two.
+
+CLI equivalent:
+
+[source,powershell]
+----
+uniconfig register-catalog --id com.mycompany.myapp `
+  --catalog "C:\Program Files\MyApp\uniconfig\catalog.sdl" `
+  --repository https://github.com/mycompany/myapp `
+  --registered-by "MyApp/1.2.0"
+----
+
+Closed source:
+
+[source,powershell]
+----
+uniconfig register-catalog --id com.mycompany.myapp `
+  --catalog "..." `
+  --closed-source `
+  --registered-by "MyApp/1.2.0"
+----
+
+== Uninstall
+
+Call `unregisterCatalogSource("com.mycompany.myapp")` from your uninstaller, or rely on stale-entry pruning when the catalog path disappears.
+
+== Fallback pack (optional)
+
+Popular third-party tools (Git, Terraform, DUB) that never ship their own vocabulary may appear in the separate `uniconfig-profiles` curated pack. That is **not** the normal extension path for your app.
+
+== Related
+
+* xref:howto-embed-configui.adoc[Embed or launch ConfigUI]
+* xref:howto-components.adoc[Engine and UI components]
+* xref:architecture.adoc[Architecture]

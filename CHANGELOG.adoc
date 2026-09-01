@@ -2,6 +2,13 @@
 
 Functional notes for the desktop app. Library details: https://github.com/dev-centr/uniconfig-core
 
+== 2026-09-01 — catalog registration and developer docs
+
+* Document banner: format spec, codec source, publisher repository (or closed source)
+* CLI `register-catalog` / `unregister-catalog`
+* Developer how-tos: ship vocabulary, embed ConfigUI, components stack
+* Uses uniconfig-core catalog index + lazy profile resolver
+
 == 2026-08-17 — v0.1.0
 
 * First public UniConfig Config Panel
