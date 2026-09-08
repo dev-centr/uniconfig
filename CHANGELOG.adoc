@@ -6,7 +6,7 @@ Functional notes for the desktop app. Library details: https://github.com/dev-ce
 
 * Rebuilt the layers and schema-minus-instance figures from Mermaid source with standalone light/dark and docs-hub host outputs
 * Preserved the original fixed artwork and added deterministic freshness checks
-* Made the freshness renderer compatible with sandbox-restricted GitHub runners
+* Made freshness checks platform-independent by stamping source fingerprints, while keeping generation compatible with sandbox-restricted GitHub runners
 
 == 2026-09-01 — dui/dew default desktop shell
 
