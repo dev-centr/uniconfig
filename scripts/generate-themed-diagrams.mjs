@@ -7,6 +7,7 @@ import { basename, join, resolve } from 'node:path'
 const diagrams = ['layers', 'schema-minus-instance']
 const imageDir = resolve('docs/modules/ROOT/images')
 const config = resolve('docs/mermaid-config.json')
+const puppeteerConfig = resolve('docs/puppeteer-config.json')
 const check = process.argv.includes('--check')
 const tools = {
   mmdc: resolve('node_modules/@mermaid-js/mermaid-cli/src/cli.js'),
@@ -25,6 +26,7 @@ try {
       '-i', join(imageDir, `${name}.mmd`),
       '-o', raw,
       '-c', config,
+      '-p', puppeteerConfig,
       '-b', 'transparent',
     ], { stdio: 'inherit' })
     normalizeAccessibility(raw)
