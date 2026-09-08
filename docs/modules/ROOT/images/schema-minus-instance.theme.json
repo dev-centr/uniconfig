@@ -1,0 +1,60 @@
+{
+  "$schema": "https://docs.devcentr.org/themed-svg/schemas/themed-svg-manifest-v1.schema.json",
+  "schemaVersion": 1,
+  "namespace": "uniconfig-schema-minus-instance",
+  "source": {
+    "kind": "diagram-generator",
+    "uri": "schema-minus-instance.mmd",
+    "generator": "mermaid"
+  },
+  "tokens": [
+    { "id": "color.canvas", "description": "Diagram canvas" },
+    { "id": "color.surface.instance", "description": "On-disk instance surface" },
+    { "id": "color.surface.panel", "description": "Schema-enriched panel surface" },
+    { "id": "color.text.primary", "description": "Primary diagram text" },
+    { "id": "color.text.muted", "description": "Relationship label text" },
+    { "id": "color.border.primary", "description": "Panel borders" },
+    { "id": "color.edge", "description": "Schema enrichment edge" },
+    { "id": "color.edge.label", "description": "Schema enrichment label background" }
+  ],
+  "defaultPreset": "light",
+  "presets": {
+    "light": {
+      "color.canvas": "#f4f1eb",
+      "color.surface.instance": "#ffffff",
+      "color.surface.panel": "#ece8e1",
+      "color.text.primary": "#1c1c1e",
+      "color.text.muted": "#4a4742",
+      "color.border.primary": "#1c1c1e",
+      "color.edge": "#4b7f7a",
+      "color.edge.label": "#f4f1eb"
+    },
+    "dark": {
+      "color.canvas": "#111315",
+      "color.surface.instance": "#202225",
+      "color.surface.panel": "#292b2e",
+      "color.text.primary": "#f2eee7",
+      "color.text.muted": "#d0cbc3",
+      "color.border.primary": "#c8c3bb",
+      "color.edge": "#78aaa4",
+      "color.edge.label": "#111315"
+    }
+  },
+  "bindings": [
+    { "kind": "presentation", "selector": "svg", "attribute": "color", "token": "color.text.primary" },
+    { "kind": "presentation", "selector": ".background", "attribute": "fill", "token": "color.canvas" },
+    { "kind": "stylesheet", "selector": "#my-svg .instance rect", "property": "fill", "token": "color.surface.instance" },
+    { "kind": "stylesheet", "selector": "#my-svg .panel rect", "property": "fill", "token": "color.surface.panel" },
+    { "kind": "stylesheet", "selector": "#my-svg .instance rect", "property": "stroke", "token": "color.border.primary" },
+    { "kind": "stylesheet", "selector": "#my-svg .panel rect", "property": "stroke", "token": "color.border.primary" },
+    { "kind": "stylesheet", "selector": "#my-svg .instance tspan", "property": "fill", "token": "color.text.primary" },
+    { "kind": "stylesheet", "selector": "#my-svg .panel tspan", "property": "fill", "token": "color.text.primary" },
+    { "kind": "stylesheet", "selector": "#my-svg .flowchart-link", "property": "stroke", "token": "color.edge" },
+    { "kind": "presentation", "selector": ".edgeLabel rect", "attribute": "fill", "token": "color.edge.label" },
+    { "kind": "presentation", "selector": ".edgeLabel text", "attribute": "fill", "token": "color.text.muted" }
+  ],
+  "fallback": {
+    "unresolvedToken": "error",
+    "missingTarget": "warn"
+  }
+}

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" role="img">
+  <title>File, schema, and panel layers</title>
+  <rect width="960" height="420" fill="#f4f1eb"/>
+  <rect x="40" y="280" width="880" height="100" fill="#1c1c1e"/>
+  <text x="60" y="320" fill="#ece8e1" font-family="Segoe UI, Helvetica, sans-serif" font-size="20">Storage</text>
+  <text x="60" y="348" fill="#b8b4ae" font-family="Segoe UI, Helvetica, sans-serif" font-size="14">INI  YAML  TOML  SDLang  JSON  tfvars</text>
+  <rect x="40" y="150" width="880" height="110" fill="#2c4f4b"/>
+  <text x="60" y="190" fill="#ece8e1" font-family="Segoe UI, Helvetica, sans-serif" font-size="20">Meaning</text>
+  <text x="60" y="218" fill="#d7e6e4" font-family="Segoe UI, Helvetica, sans-serif" font-size="14">JSON Schema  SDLang profiles  filename globs  sidecars</text>
+  <rect x="40" y="40" width="880" height="90" fill="#ece8e1" stroke="#1c1c1e" stroke-width="3"/>
+  <text x="60" y="80" fill="#1c1c1e" font-family="Segoe UI, Helvetica, sans-serif" font-size="20">Panel</text>
+  <text x="60" y="108" fill="#4a4742" font-family="Segoe UI, Helvetica, sans-serif" font-size="14">Same widgets for every file: enums, toggles, include-unset, descriptions</text>
+  <path d="M480 240 L480 280" stroke="#4b7f7a" stroke-width="4"/>
+  <path d="M480 130 L480 150" stroke="#4b7f7a" stroke-width="4"/>
+</svg>

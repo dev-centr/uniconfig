@@ -8,6 +8,7 @@ Linux already solved this for **opt-in apps**: GSettings schemas plus dconf-edit
 
 Nothing trustworthy sits in the middle: open *this* Terraform tfvars, *that* `dub.sdl`, *that* `.gitconfig`, register them after touch, and keep the same panel widgets.
 
+[.themed-svg]
 image::schema-minus-instance.svg[alt="Left: two-line gitconfig. Right: panel listing unset email and autocrlf"]
 
 == Two layers (do not confuse them)

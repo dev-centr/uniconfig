@@ -4,6 +4,10 @@
 !README.adoc
 !CHANGELOG.adoc
 !AGENTS.md
+!package.json
+!pnpm-lock.yaml
+!scripts/
+!scripts/**
 !dub.sdl
 !source/
 !source/**

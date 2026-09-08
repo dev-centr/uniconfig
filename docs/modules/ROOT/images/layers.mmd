@@ -1,0 +1,16 @@
+flowchart TB
+  accTitle: File, schema, and panel layers
+  accDescr: Storage formats feed semantic vocabulary, which drives one consistent configuration panel.
+
+  STORAGE["Storage<br/>INI · YAML · TOML · SDLang · JSON · tfvars"]
+  MEANING["Meaning<br/>JSON Schema · SDLang catalogs · filename globs · sidecars"]
+  PANEL["Panel<br/>Same widgets for every file: enums, toggles, include-unset, descriptions"]
+
+  STORAGE --> MEANING --> PANEL
+
+  classDef storage fill:#1c1c1e,stroke:#1c1c1e,color:#ece8e1
+  classDef meaning fill:#2c4f4b,stroke:#2c4f4b,color:#ece8e1
+  classDef panel fill:#ece8e1,stroke:#1c1c1e,color:#1c1c1e
+  class STORAGE storage
+  class MEANING meaning
+  class PANEL panel

@@ -6,6 +6,7 @@
 
 The reusable engine is link:https://github.com/dev-centr/uniconfig-core[uniconfig-core] (UniConfig). DevCentr and third-party apps depend on the engine without pulling a GUI.
 
+[.themed-svg]
 image::layers.svg[alt="Engine, vocabulary, form binder, ConfigUI shell"]
 
 == How vocabulary works

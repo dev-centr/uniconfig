@@ -1,0 +1,10 @@
+= Adaptive documentation diagrams
+:page-audience: UniConfig maintainers and readers tracking documentation changes
+:page-usage-context: Changelog detail for the accepted themed SVG migration
+:page-orig-author: Cursor agent on behalf of Ryan Johnson
+:page-last-author: Cursor agent on behalf of Ryan Johnson
+:page-last-edited: 2026-09-08
+
+The layers and schema-minus-instance figures now have editable Mermaid sources and explicit semantic theme manifests. The committed public SVGs adapt to light or dark browser preferences without JavaScript, while sibling host SVGs support the docs hub's manual Valentus theme state.
+
+The deterministic generation script renders each Mermaid source once and produces both delivery outputs with `@dev-centr/mermaid-svg-css-vars` 0.1.2 and `@dev-centr/themed-svg` 0.1.1. Original hand-authored figures remain as fixed artifacts.

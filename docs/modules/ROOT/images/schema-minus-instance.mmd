@@ -1,0 +1,13 @@
+flowchart LR
+  accTitle: Schema minus instance
+  accDescr: A two-line configuration instance becomes a panel that also exposes valid unset fields supplied by schema vocabulary.
+
+  INSTANCE["On disk: two lines<br/><br/>[user]<br/>name = Ada"]
+  PANEL["Panel: schema minus instance<br/><br/>User<br/>Name · Ada<br/>Email · (unset) include<br/><br/>Core<br/>autocrlf · [true, false, input]"]
+
+  INSTANCE -->|"schema vocabulary adds valid fields"| PANEL
+
+  classDef instance fill:#ffffff,stroke:#1c1c1e,color:#1c1c1e
+  classDef panel fill:#ece8e1,stroke:#1c1c1e,color:#1c1c1e
+  class INSTANCE instance
+  class PANEL panel

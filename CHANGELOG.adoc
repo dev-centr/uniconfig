@@ -2,6 +2,11 @@
 
 Functional notes for the desktop app. Library details: https://github.com/dev-centr/uniconfig-core
 
+== 2026-09-08 — adaptive documentation diagrams
+
+* Rebuilt the layers and schema-minus-instance figures from Mermaid source with standalone light/dark and docs-hub host outputs
+* Preserved the original fixed artwork and added deterministic freshness checks
+
 == 2026-09-01 — dui/dew default desktop shell
 
 * Default GUI: `configui-dui` + GLFW/Vello (`dub build -c windowed`)

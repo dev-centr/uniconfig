@@ -11,6 +11,7 @@
 | `uniconfig` | ConfigUI app shell + `fallback-catalog/` for Git/Terraform/DUB when those tools never ship vocabulary.
 |===
 
+[.themed-svg]
 image::layers.svg[alt="Storage, meaning, and panel stacked"]
 
 == Layers

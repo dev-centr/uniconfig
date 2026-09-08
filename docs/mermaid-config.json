@@ -1,0 +1,22 @@
+{
+  "deterministicIds": true,
+  "deterministicIDSeed": "dev-centr-uniconfig-diagrams",
+  "fontFamily": "Segoe UI, system-ui, sans-serif",
+  "htmlLabels": false,
+  "flowchart": {
+    "curve": "linear",
+    "htmlLabels": false,
+    "nodeSpacing": 32,
+    "rankSpacing": 42
+  },
+  "securityLevel": "strict",
+  "theme": "base",
+  "themeVariables": {
+    "background": "#f4f1eb",
+    "fontFamily": "Segoe UI, system-ui, sans-serif",
+    "lineColor": "#4b7f7a",
+    "primaryBorderColor": "#1c1c1e",
+    "primaryColor": "#ece8e1",
+    "primaryTextColor": "#1c1c1e"
+  }
+}
