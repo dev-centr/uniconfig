@@ -47,5 +47,5 @@ uniconfig dump .\fixtures\sample.gitconfig
 
 == Related
 
-* Portal: xref:home:tools/uniconfig.adoc[UniConfig (portal)]
-* dlangui fork / Vello: xref:home:tools/dlangui.adoc[dlangui]
+* Portal: xref:home::tools/uniconfig.adoc[UniConfig (portal)]
+* dlangui fork / Vello: xref:home::tools/dlangui.adoc[dlangui]
