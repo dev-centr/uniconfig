@@ -21,3 +21,5 @@
 !assets/**
 !.github/
 !.github/**
+!/.editorconfig
+!/.gitattributes
