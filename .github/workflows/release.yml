@@ -12,30 +12,30 @@ jobs:
   windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: dev-centr/uniconfig-core
           path: uniconfig-core
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: dev-centr/configui-binders
           path: configui-binders
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: dlang-supplemental/dew
           path: dlang-supplemental/dew
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: dlang-supplemental/dui
           path: dlang-supplemental/dui
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: dlang-supplemental/vello-d
           path: dlang-supplemental/vello-d
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           path: uniconfig
-      - uses: dlang-community/setup-dlang@v1
+      - uses: dlang-community/setup-dlang@v2
         with:
           compiler: ldc-latest
       - uses: dtolnay/rust-toolchain@stable
@@ -60,7 +60,7 @@ jobs:
           Copy-Item vello_bridge.dll dist/ -ErrorAction SilentlyContinue
           Copy-Item -Recurse fallback-catalog dist/fallback-catalog
           Compress-Archive -Path dist\* -DestinationPath uniconfig-windows-amd64.zip -Force
-      - uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v3
         with:
           files: |
             uniconfig/uniconfig-windows-amd64.zip

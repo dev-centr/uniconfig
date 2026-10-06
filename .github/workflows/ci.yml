@@ -9,11 +9,11 @@ jobs:
   docs-diagrams:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
         with:
           version: 10.28.1
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: pnpm
@@ -23,14 +23,14 @@ jobs:
   core:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: dev-centr/uniconfig-core
           path: uniconfig-core
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           path: uniconfig
-      - uses: dlang-community/setup-dlang@v1
+      - uses: dlang-community/setup-dlang@v2
         with:
           compiler: ldc-latest
       - name: Test core
@@ -40,30 +40,30 @@ jobs:
   app-windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: dev-centr/uniconfig-core
           path: uniconfig-core
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: dev-centr/configui-binders
           path: configui-binders
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: dlang-supplemental/dew
           path: dlang-supplemental/dew
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: dlang-supplemental/dui
           path: dlang-supplemental/dui
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: dlang-supplemental/vello-d
           path: dlang-supplemental/vello-d
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           path: uniconfig
-      - uses: dlang-community/setup-dlang@v1
+      - uses: dlang-community/setup-dlang@v2
         with:
           compiler: ldc-latest
       - name: Build headless
