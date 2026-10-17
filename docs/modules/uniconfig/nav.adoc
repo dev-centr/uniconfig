@@ -1,4 +1,5 @@
-* xref:index.adoc[Introduction]
+.UniConfig
+* xref:index.adoc[Overview]
 * xref:explanation.adoc[Why a generic config panel]
 * How-to
 ** xref:howto-open.adoc[Open and register files]
