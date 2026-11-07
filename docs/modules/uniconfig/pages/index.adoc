@@ -42,7 +42,7 @@ uniconfig dump .\fixtures\sample.gitconfig
 
 == Companion writing
 
-* News: link:https://devcentr.org/news/2026-08-17-config-files-get-a-control-panel[Config files get a Control Panel]
+* News: link:https://devcentr.org/news/2026-08-17-a-control-panel-for-all-config-file-types[Config files get a Control Panel]
 * HCI: link:https://hci-nerdz.github.io/blog/config-ui-as-the-field-vocabulary/[Config UI as the field vocabulary]
 
 == Related

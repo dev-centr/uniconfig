@@ -1,12 +1,22 @@
 = Changelog
 
-== 2026-09-08 — Adaptive documentation diagrams
+== 2026-11-07
+
+=== Refresh documentation destinations
+
+* Update links to canonical folder URLs and the current news/blog article slugs. Replace retired references with available authoritative resources; private repositories remain explicitly access-controlled examples.
+
+== 2026-09-08
+
+=== Adaptive documentation diagrams
 
 * Migrated the layers and schema-minus-instance figures to Mermaid sources, explicit semantic palettes, standalone-adaptive SVGs, and host-runtime SVGs.
 * Preserved the original hand-authored figures as fixed outputs.
 * See xref:changelog-details/2026-09-08 - adaptive-documentation-diagrams.adoc[Detailed changelog]
 
-== 2026-08-17 — v0.1.0 first public cut
+== 2026-08-17
+
+=== v0.1.0 first public cut
 
 * Desktop panel + CLI for JSON, JSON5-lite, YAML-lite, TOML/INI, SDLang, HCL-lite (`tfvars`)
 * Schema overlay (JSON Schema subset) and SDLang profile catalog
