@@ -1,5 +1,6 @@
 ifndef::env-github[:icons: font]
-:toc: preamble
+:toc: macro
+:toc-title:
 :toclevels: 2
 :sectanchors:
 
@@ -34,6 +35,15 @@ Schema-driven Control Panel for config files that never grew a settings UI.
 
 link:https://docs.devcentr.org/tools/uniconfig/[Explore the docs »]
 endif::[]
+
+++++
+<details>
+<summary>Table of Contents</summary>
+++++
+toc::[]
+++++
+</details>
+++++
 
 == About The Project
 
